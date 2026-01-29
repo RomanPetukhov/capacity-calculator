@@ -1,0 +1,293 @@
+.sprint-manager h2 {
+    font-size: 1.5rem;
+}
+
+.sprint-manager {
+    margin-bottom: var(--spacing-xl);
+}
+
+.sprint-manager .calendar-icon {
+    stroke: #ffffff !important;
+    color: #ffffff !important;
+    margin-right: var(--spacing-sm);
+    vertical-align: middle;
+    min-width: 24px;
+    min-height: 24px;
+}
+
+.section-header h2 {
+    display: flex;
+    align-items: center;
+    color: var(--text-primary);
+}
+
+.add-sprint-form {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    padding: var(--spacing-md);
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.sprint-input {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-md);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.name-input {
+    flex: 2;
+    min-width: 150px;
+}
+
+.date-group {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.date-input {
+    width: 130px;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color-scheme: dark;
+    /* Forces browser to use dark theme controls */
+}
+
+/* Target the native date picker icon */
+.date-input::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    /* Invert black to white */
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.date-input::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+}
+
+.date-separator {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.days-preview {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.calc-days {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    font-family: var(--font-mono);
+    background: var(--bg-primary);
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+    border: 1px dashed var(--border-medium);
+}
+
+.override-input {
+    width: 80px;
+}
+
+.sprint-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.sprint-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-md);
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    gap: var(--spacing-md);
+}
+
+.sprint-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    flex: 1;
+}
+
+.sprint-name-edit {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid transparent;
+    color: var(--text-primary);
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 2px 0;
+    width: 100%;
+}
+
+.sprint-name-edit:focus {
+    outline: none;
+    border-bottom-color: var(--accent-primary);
+}
+
+.sprint-dates {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.date-edit {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    padding: 2px;
+    border-radius: var(--radius-sm);
+    width: 125px;
+    color-scheme: dark;
+}
+
+.date-edit::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.date-edit:hover::-webkit-calendar-picker-indicator {
+    opacity: 1;
+}
+
+.date-edit:hover,
+.date-edit:focus {
+    border-color: var(--border-medium);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.sprint-days-control {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    background: var(--bg-primary);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-subtle);
+}
+
+.days-display {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+}
+
+.auto-days {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+}
+
+.manual-badge {
+    font-size: 0.65rem;
+    background: var(--accent-primary);
+    color: white;
+    padding: 1px 4px;
+    border-radius: 2px;
+    text-transform: uppercase;
+}
+
+.days-override-edit {
+    width: 60px;
+    padding: var(--spacing-xs);
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-sm);
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    text-align: center;
+    font-weight: 600;
+}
+
+.days-override-edit:focus {
+    border-color: var(--accent-primary);
+    outline: none;
+}
+
+.total-days-badge {
+    background: var(--bg-tertiary);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: var(--radius-full);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--accent-primary);
+    border: 1px solid var(--border-medium);
+}
+
+@media (max-width: 768px) {
+    .add-sprint-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .name-input,
+    .date-group,
+    .days-preview {
+        width: 100%;
+    }
+
+    .date-input {
+        flex: 1;
+    }
+
+    .sprint-item {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .sprint-days-control {
+        justify-content: space-between;
+    }
+}
+
+.sprint-summary {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid var(--border-subtle);
+}
+
+.summary-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-md);
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    text-align: center;
+}
+
+.summary-label {
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.summary-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}

@@ -1,0 +1,272 @@
+.focus-calculator-wrapper {
+    margin-bottom: var(--spacing-2xl);
+}
+
+.focus-calculator {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
+    border: 2px solid var(--accent-primary);
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.1);
+}
+
+.calculator-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 2px solid var(--border-medium);
+}
+
+.focus-calculator h2 {
+    font-size: 1.75rem;
+    margin-bottom: var(--spacing-xs);
+}
+
+.calculator-description {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    max-width: 600px;
+    margin-bottom: var(--spacing-xs);
+}
+
+.calculator-note {
+    color: var(--text-tertiary);
+    font-size: 0.8rem;
+    font-style: italic;
+    margin-top: var(--spacing-xs);
+}
+
+/* Employee Calculators */
+.employee-calculators {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+}
+
+.employee-calculator {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    transition: all var(--transition-base);
+}
+
+.employee-calculator:hover {
+    border-color: var(--accent-primary);
+    box-shadow: var(--shadow-lg);
+}
+
+.employee-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.employee-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.employee-name {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Role Badges */
+.role-badge {
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.role-badge.scrumMaster {
+    background: rgba(59, 130, 246, 0.2);
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.role-badge.productOwner {
+    background: rgba(168, 85, 247, 0.2);
+    color: #c084fc;
+    border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+.role-badge.other {
+    background: rgba(156, 163, 175, 0.2);
+    color: #9ca3af;
+    border: 1px solid rgba(156, 163, 175, 0.3);
+}
+
+/* Focus Badge */
+.focus-badge {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    background: var(--accent-gradient);
+    color: white;
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: var(--radius-md);
+    font-family: var(--font-mono);
+    box-shadow: var(--shadow-sm);
+}
+
+.k-label {
+    font-size: 0.75rem;
+    opacity: 0.9;
+}
+
+.k-value {
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.trend-arrow {
+    font-size: 1.2rem;
+    margin-left: 2px;
+}
+
+.warning-icon {
+    font-size: 1rem;
+    cursor: help;
+}
+
+/* Sprint Data Table */
+.sprint-data-table {
+    overflow-x: auto;
+}
+
+.sprint-data-table table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+}
+
+.sprint-data-table th,
+.sprint-data-table td {
+    padding: var(--spacing-sm);
+    text-align: center;
+}
+
+.sprint-data-table th {
+    color: var(--text-tertiary);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.sprint-data-table tbody tr {
+    transition: background var(--transition-fast);
+}
+
+.sprint-data-table tbody tr:hover {
+    background: var(--bg-tertiary);
+}
+
+.sprint-data-table tbody tr.excluded {
+    opacity: 0.5;
+    text-decoration: line-through;
+}
+
+.sprint-name-input {
+    width: 90px;
+    padding: 4px 8px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 0.8rem;
+}
+
+.sprint-data-table input[type="number"] {
+    width: 70px;
+    padding: var(--spacing-xs);
+    text-align: center;
+    font-family: var(--font-mono);
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+}
+
+.sprint-data-table input[type="number"].warning {
+    border-color: #f59e0b;
+    background: rgba(245, 158, 11, 0.1);
+}
+
+.sprint-data-table input[type="number"]:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
+}
+
+.k-cell {
+    color: var(--accent-primary);
+    font-weight: 600;
+    font-family: var(--font-mono);
+}
+
+.exclude-cell {
+    padding: var(--spacing-xs);
+}
+
+.exclude-cell input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.sprint-data-table tfoot {
+    border-top: 2px solid var(--border-medium);
+}
+
+.sprint-data-table tfoot td {
+    padding-top: var(--spacing-md);
+    font-weight: 600;
+}
+
+.total-label {
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+}
+
+.total-value {
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+}
+
+.total-k {
+    color: var(--accent-primary);
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: var(--font-mono);
+}
+
+@media (max-width: 768px) {
+    .employee-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-sm);
+    }
+
+    .sprint-data-table {
+        font-size: 0.75rem;
+    }
+
+    .sprint-data-table input[type="number"],
+    .sprint-name-input {
+        width: 60px;
+        font-size: 0.75rem;
+    }
+}

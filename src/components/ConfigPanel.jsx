@@ -1,0 +1,159 @@
+import './ConfigPanel.css';
+
+function ConfigPanel({ config, setConfig, calculationMethod, setCalculationMethod, teamVelocity, setTeamVelocity }) {
+    const handleConfigChange = (key, value) => {
+        setConfig({ ...config, [key]: parseFloat(value) || 0 });
+    };
+
+    const totalPct = config.bugPct + config.committedPct + config.uncommittedPct + (config.enablersPct || 0) + config.techDebtPct;
+    const isValidTotal = Math.abs(totalPct - 100) < 0.01;
+
+    return (
+        <div className="card config-panel">
+            <h2>⚙️ Configuration</h2>
+
+            <div className="config-section">
+                <h3>Calculation Method</h3>
+                <div className="mode-toggle-group refined">
+                    <button
+                        className={`mode-btn ${calculationMethod === 'focusFactor' ? 'active' : ''}`}
+                        onClick={() => setCalculationMethod('focusFactor')}
+                    >
+                        <span className="mode-icon">🎯</span>
+                        <span className="mode-label">Focus Factor (Coefficient)</span>
+                    </button>
+
+                    <button
+                        className={`mode-btn ${calculationMethod === 'velocity' ? 'active' : ''}`}
+                        onClick={() => setCalculationMethod('velocity')}
+                    >
+                        <div className="mode-btn-content">
+                            <span className="mode-icon">🚀</span>
+                            <span className="mode-label">Average Team Velocity</span>
+                        </div>
+                        <div className="tooltip-container">
+                            <span className="tooltip-icon">ℹ️</span>
+                            <div className="tooltip-text">
+                                Calculation by average velocity is less accurate as it doesn't account for individual capacity changes as precisely as the focus factor method.
+                            </div>
+                        </div>
+                    </button>
+                </div>
+
+                {calculationMethod === 'velocity' && (
+                    <div className="velocity-input-container">
+                        <label className="velocity-label">
+                            Team Velocity (SP / Day)
+                            <div className="tooltip-container" style={{ marginLeft: '8px', display: 'inline-flex' }}>
+                                <span className="tooltip-icon">ℹ️</span>
+                                <div className="tooltip-text">
+                                    Total daily velocity of the entire team (Story Points per Day).
+                                </div>
+                            </div>
+                        </label>
+                        <input
+                            type="number"
+                            value={teamVelocity === 0 ? '' : teamVelocity}
+                            onChange={(e) => {
+                                const val = e.target.value;
+                                setTeamVelocity(val === '' ? 0 : parseFloat(val));
+                            }}
+                            className="team-velocity-input"
+                            placeholder="0"
+                            min="0"
+                        />
+                    </div>
+                )}
+            </div>
+
+            <div className="config-section">
+                <h3>Allocation Percentages</h3>
+                <div className="config-grid">
+                    <div className="config-item">
+                        <label>🐛 Bugs</label>
+                        <div className="input-group">
+                            <input
+                                type="number"
+                                value={config.bugPct}
+                                onChange={(e) => handleConfigChange('bugPct', e.target.value)}
+                                min="0"
+                                max="100"
+                                step="1"
+                            />
+                            <span className="input-suffix">%</span>
+                        </div>
+                    </div>
+
+                    <div className="config-item">
+                        <label>✅ Committed Goals</label>
+                        <div className="input-group">
+                            <input
+                                type="number"
+                                value={config.committedPct}
+                                onChange={(e) => handleConfigChange('committedPct', e.target.value)}
+                                min="0"
+                                max="100"
+                                step="1"
+                            />
+                            <span className="input-suffix">%</span>
+                        </div>
+                    </div>
+
+                    <div className="config-item">
+                        <label>📋 Uncommitted Goals</label>
+                        <div className="input-group">
+                            <input
+                                type="number"
+                                value={config.uncommittedPct}
+                                onChange={(e) => handleConfigChange('uncommittedPct', e.target.value)}
+                                min="0"
+                                max="100"
+                                step="1"
+                            />
+                            <span className="input-suffix">%</span>
+                        </div>
+                    </div>
+
+                    <div className="config-item">
+                        <label>🔮 Enablers</label>
+                        <div className="input-group">
+                            <input
+                                type="number"
+                                value={config.enablersPct}
+                                onChange={(e) => handleConfigChange('enablersPct', e.target.value)}
+                                min="0"
+                                max="100"
+                                step="1"
+                            />
+                            <span className="input-suffix">%</span>
+                        </div>
+                    </div>
+
+                    <div className="config-item">
+                        <label>🔧 Tech Debt</label>
+                        <div className="input-group">
+                            <input
+                                type="number"
+                                value={config.techDebtPct}
+                                onChange={(e) => handleConfigChange('techDebtPct', e.target.value)}
+                                min="0"
+                                max="100"
+                                step="1"
+                            />
+                            <span className="input-suffix">%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div className={`total-indicator ${isValidTotal ? 'valid' : 'invalid'}`}>
+                    <span>Total: {totalPct.toFixed(1)}%</span>
+                    {!isValidTotal && <span className="warning">⚠️ Should equal 100%</span>}
+                </div>
+            </div>
+
+
+        </div>
+    );
+}
+
+export default ConfigPanel;

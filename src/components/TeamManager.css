@@ -1,0 +1,228 @@
+.team-manager {
+    margin-bottom: var(--spacing-xl);
+}
+
+.team-manager h2 {
+    font-size: 1.5rem;
+}
+
+.team-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.team-item {
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-md);
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-base);
+}
+
+.team-item:hover {
+    border-color: var(--border-medium);
+    background: var(--bg-elevated);
+}
+
+.team-item.non-dev {
+    background: rgba(156, 163, 175, 0.05);
+    border-color: rgba(156, 163, 175, 0.3);
+    border-style: dashed;
+}
+
+.team-item-main {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.team-name-section {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    flex: 1;
+    min-width: 200px;
+}
+
+.team-name {
+    font-weight: 500;
+    font-size: 1rem;
+    flex: 1;
+    min-width: 150px;
+}
+
+/* Role Badges */
+.role-badge {
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+}
+
+.role-badge.scrumMaster {
+    background: rgba(59, 130, 246, 0.2);
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.role-badge.productOwner {
+    background: rgba(168, 85, 247, 0.2);
+    color: #c084fc;
+    border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+.role-badge.other {
+    background: rgba(156, 163, 175, 0.2);
+    color: #9ca3af;
+    border: 1px solid rgba(156, 163, 175, 0.3);
+}
+
+/* Team Controls */
+.team-controls {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.role-selector {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.role-selector label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+.role-select {
+    padding: 6px 10px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.role-select:hover {
+    border-color: var(--border-medium);
+}
+
+.role-select:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.1);
+}
+
+.participation-toggle {
+    display: flex;
+    align-items: center;
+}
+
+.participation-toggle label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    user-select: none;
+}
+
+.participation-toggle input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.focus-display {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--bg-primary);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-subtle);
+    font-family: var(--font-mono);
+}
+
+.focus-label {
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+    font-weight: 600;
+}
+
+.focus-value {
+    font-size: 1rem;
+    font-weight: 700;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.trend-arrow {
+    font-size: 1.1rem;
+    margin-left: 2px;
+}
+
+.delete-btn {
+    opacity: 0.6;
+    margin-left: auto;
+}
+
+.delete-btn:hover:not(:disabled) {
+    opacity: 1;
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.delete-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+/* Non-Dev Notice */
+.non-dev-notice {
+    margin-top: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    color: #f59e0b;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+@media (max-width: 768px) {
+    .team-item-main {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .team-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .role-selector,
+    .participation-toggle {
+        width: 100%;
+    }
+
+    .delete-btn {
+        align-self: flex-end;
+    }
+}
