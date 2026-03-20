@@ -249,7 +249,7 @@ function App() {
       <header className="app-header">
         <div className="header-content">
           <h1 className="gradient-text">Capacity Calculator</h1>
-          <p className="header-subtitle">Team capacity planning and allocation</p>
+          <p className="header-subtitle">Team capacity planning and allocation • Synced with Antigravity</p>
         </div>
         <div className="header-controls">
           <button className="action-btn" onClick={handleSave}>
