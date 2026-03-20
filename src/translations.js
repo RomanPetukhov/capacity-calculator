@@ -1,3 +1,5 @@
+import { translations } from './translations.js';
+
 export const translations = {
     en: {
         appTitle: "Capacity Calculator",
@@ -82,7 +84,7 @@ export const translations = {
         teamVelocityTooltip: "Общая дневная скорость всей команды (Story Points в день).",
         allocationPct: "Общий процент по квотам (далее можно изменить % для каждого отдельного спринта)",
         maintenance: "🛠️ Maintenance",
-        committed: "✅ Обязательства",
+        committed: "✅ Committed",
         spikes: "⚡ Spikes",
         techDebt: "🔧 Tech Debt",
 
