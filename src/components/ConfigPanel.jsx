@@ -13,17 +13,17 @@ function ConfigPanel({ config, setConfig, calculationMethod, setCalculationMetho
 
     return (
         <div className="card config-panel">
-            <h2>⚙️ Configuration</h2>
+            <h2>{translations.configTitle}</h2>
 
             <div className="config-section">
-                <h3>Calculation Method</h3>
+                <h3>{translations.calcMethod}</h3>
                 <div className="mode-toggle-group refined">
                     <button
                         className={`mode-btn ${calculationMethod === 'focusFactor' ? 'active' : ''}`}
                         onClick={() => setCalculationMethod('focusFactor')}
                     >
                         <span className="mode-icon">🎯</span>
-                        <span className="mode-label">Focus Factor (Coefficient)</span>
+                        <span className="mode-label">{translations.focusFactorMethod}</span>
                     </button>
 
                     <button
@@ -32,12 +32,12 @@ function ConfigPanel({ config, setConfig, calculationMethod, setCalculationMetho
                     >
                         <div className="mode-btn-content">
                             <span className="mode-icon">🚀</span>
-                            <span className="mode-label">Average Team Velocity</span>
+                            <span className="mode-label">{translations.avgVelocityMethod}</span>
                         </div>
                         <div className="tooltip-container">
                             <span className="tooltip-icon">ℹ️</span>
                             <div className="tooltip-text">
-                                Calculation by average velocity is less accurate as it doesn't account for individual capacity changes as precisely as the focus factor method.
+                                {translations.avgVelocityTooltip}
                             </div>
                         </div>
                     </button>
@@ -46,11 +46,11 @@ function ConfigPanel({ config, setConfig, calculationMethod, setCalculationMetho
                 {calculationMethod === 'velocity' && (
                     <div className="velocity-input-container">
                         <label className="velocity-label">
-                            Team Velocity (SP / Day)
+                            {translations.teamVelocityLabel}
                             <div className="tooltip-container" style={{ marginLeft: '8px', display: 'inline-flex' }}>
                                 <span className="tooltip-icon">ℹ️</span>
                                 <div className="tooltip-text">
-                                    Total daily velocity of the entire team (Story Points per Day).
+                                    {translations.teamVelocityTooltip}
                                 </div>
                             </div>
                         </label>
@@ -70,7 +70,7 @@ function ConfigPanel({ config, setConfig, calculationMethod, setCalculationMetho
             </div>
 
             <div className="config-section">
-                <h3>Allocation Percentages</h3>
+                <h3>{translations.allocationPct}</h3>
                 <div className="config-grid">
                     <div className="config-item">
                         <label>{translations.maintenance}</label>

@@ -158,7 +158,6 @@ function CapacityDashboard({ employees, sprints, config, setConfig, vacations, c
 
             {/* Employee Breakdown Table - Gross Capacity */}
             <div className="employee-breakdown">
-                <h3>{translations.grossCapacityTitle}</h3>
                 <p className="table-description">{translations.grossCapacityDesc}</p>
                 <div className="table-container">
                     <table className="breakdown-table">

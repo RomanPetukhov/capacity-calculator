@@ -1,6 +1,9 @@
 import './TeamManager.css';
+import { translations as allTranslations } from '../translations';
 
 function TeamManager({ employees, setEmployees, calculationMethod }) {
+    const language = 'ru';
+    const translations = allTranslations[language];
     const addEmployee = () => {
         const newId = Math.max(...employees.map(e => e.id), 0) + 1;
         setEmployees([...employees, {
@@ -57,8 +60,8 @@ function TeamManager({ employees, setEmployees, calculationMethod }) {
     return (
         <div className="card team-manager">
             <div className="section-header">
-                <h2>👥 Team Members</h2>
-                <button className="btn-primary" onClick={addEmployee}>+ Add Member</button>
+                <h2>{translations.teamMembersTitle}</h2>
+                <button className="btn-primary" onClick={addEmployee}>{translations.addMember}</button>
             </div>
 
             <div className="team-list">
@@ -78,7 +81,7 @@ function TeamManager({ employees, setEmployees, calculationMethod }) {
                                         value={emp.name}
                                         onChange={(e) => updateEmployeeName(emp.id, e.target.value)}
                                         className="team-name"
-                                        placeholder="Employee name"
+                                        placeholder={translations.employeeName}
                                     />
                                     {emp.role && emp.role !== 'developer' && (
                                         <span className={`role-badge ${emp.role}`}>
@@ -115,7 +118,7 @@ function TeamManager({ employees, setEmployees, calculationMethod }) {
 
                                     {calculationMethod === 'focusFactor' && (
                                         <div className="focus-display">
-                                            <span className="focus-label">Avg SP/Day</span>
+                                            <span className="focus-label">{translations.avgVelocity}</span>
                                             <span className="focus-value">{emp.focusFactor.toFixed(2)}</span>
                                             {emp.trend && <span className="trend-arrow">{emp.trend}</span>}
                                         </div>

@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
 import { calculateWorkingDays } from '../utils/russianCalendar';
 import './SprintManager.css';
+import { translations as allTranslations } from '../translations';
 
 function SprintManager({ sprints, setSprints }) {
+    const language = 'ru';
+    const translations = allTranslations[language];
     const [newSprintName, setNewSprintName] = useState('');
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
@@ -139,10 +142,10 @@ function SprintManager({ sprints, setSprints }) {
                         <line x1="8" y1="2" x2="8" y2="6"></line>
                         <line x1="3" y1="10" x2="21" y2="10"></line>
                     </svg>
-                    📅 Sprint Schedule
+                    {translations.sprintScheduleTitle}
                 </h2>
                 <div className="total-days-badge">
-                    Total: {totalDays} days
+                    {translations.total}: {totalDays} {translations.workingDays}
                 </div>
             </div>
 
@@ -151,7 +154,7 @@ function SprintManager({ sprints, setSprints }) {
                     type="text"
                     value={newSprintName}
                     onChange={(e) => setNewSprintName(e.target.value)}
-                    placeholder="Sprint Name"
+                    placeholder={translations.sprintName}
                     className="sprint-input name-input"
                 />
                 <div className="date-group">
@@ -174,7 +177,7 @@ function SprintManager({ sprints, setSprints }) {
                 <div className="days-preview">
                     {calculatedDays > 0 && (
                         <span className="calc-days" title="Auto-calculated based on RU calendar">
-                            🤖 {calculatedDays} days
+                            🤖 {calculatedDays} {translations.workingDays}
                         </span>
                     )}
                     <input
@@ -186,7 +189,7 @@ function SprintManager({ sprints, setSprints }) {
                         title="Manual override (optional)"
                     />
                 </div>
-                <button className="btn-primary" onClick={addSprint}>+ Add Sprint</button>
+                <button className="btn-primary" onClick={addSprint}>{translations.addSprint}</button>
             </div>
 
             <div className="sprint-list">

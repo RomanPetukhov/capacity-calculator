@@ -1,6 +1,9 @@
 import './VacationMatrix.css';
+import { translations as allTranslations } from '../translations';
 
 function VacationMatrix({ employees, sprints, vacations, setVacations }) {
+    const language = 'ru';
+    const translations = allTranslations[language];
     const getVacationKey = (employeeId, sprintId) => `${employeeId}_${sprintId}`;
 
     const getVacationDays = (employeeId, sprintId) => {
@@ -22,19 +25,19 @@ function VacationMatrix({ employees, sprints, vacations, setVacations }) {
 
     return (
         <div className="card vacation-matrix">
-            <h2>🏖️ Vacation & Availability</h2>
-            <p className="matrix-description">Enter vacation days for each team member per sprint</p>
+            <h2>{translations.vacationMatrixTitle}</h2>
+            <p className="matrix-description">{translations.enterVacationDesc}</p>
 
             <div className="matrix-container">
                 <div className="matrix-scroll">
                     <table className="matrix-table">
                         <thead>
                             <tr>
-                                <th className="sticky-col">Team Member</th>
+                                <th className="sticky-col">{translations.teamMember}</th>
                                 {sprints.map(sprint => (
                                     <th key={sprint.id}>{sprint.name}</th>
                                 ))}
-                                <th className="total-col">Total</th>
+                                <th className="total-col">{translations.total}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -61,7 +64,7 @@ function VacationMatrix({ employees, sprints, vacations, setVacations }) {
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td className="sticky-col">Total</td>
+                                <td className="sticky-col">{translations.total}</td>
                                 {sprints.map(sprint => (
                                     <td key={sprint.id}>
                                         <span className="total-value">{getTotalVacationForSprint(sprint.id)}</span>
