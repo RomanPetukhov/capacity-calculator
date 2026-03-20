@@ -1,5 +1,3 @@
-import { translations } from './translations.js';
-
 export const translations = {
     en: {
         appTitle: "Capacity Calculator",
