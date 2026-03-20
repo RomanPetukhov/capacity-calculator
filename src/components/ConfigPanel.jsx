@@ -1,11 +1,14 @@
 import './ConfigPanel.css';
+import { translations as allTranslations } from '../translations';
 
 function ConfigPanel({ config, setConfig, calculationMethod, setCalculationMethod, teamVelocity, setTeamVelocity }) {
+    const language = 'ru'; // Determine language if possible, defaulting to ru as per user preference
+    const translations = allTranslations[language];
     const handleConfigChange = (key, value) => {
         setConfig({ ...config, [key]: parseFloat(value) || 0 });
     };
 
-    const totalPct = config.bugPct + config.committedPct + config.uncommittedPct + (config.enablersPct || 0) + config.techDebtPct;
+    const totalPct = config.bugPct + config.committedPct + (config.enablersPct || 0) + config.techDebtPct;
     const isValidTotal = Math.abs(totalPct - 100) < 0.01;
 
     return (
@@ -70,7 +73,7 @@ function ConfigPanel({ config, setConfig, calculationMethod, setCalculationMetho
                 <h3>Allocation Percentages</h3>
                 <div className="config-grid">
                     <div className="config-item">
-                        <label>🐛 Bugs</label>
+                        <label>{translations.maintenance}</label>
                         <div className="input-group">
                             <input
                                 type="number"
@@ -85,7 +88,7 @@ function ConfigPanel({ config, setConfig, calculationMethod, setCalculationMetho
                     </div>
 
                     <div className="config-item">
-                        <label>✅ Committed Goals</label>
+                        <label>{translations.committed}</label>
                         <div className="input-group">
                             <input
                                 type="number"
@@ -100,22 +103,7 @@ function ConfigPanel({ config, setConfig, calculationMethod, setCalculationMetho
                     </div>
 
                     <div className="config-item">
-                        <label>📋 Uncommitted Goals</label>
-                        <div className="input-group">
-                            <input
-                                type="number"
-                                value={config.uncommittedPct}
-                                onChange={(e) => handleConfigChange('uncommittedPct', e.target.value)}
-                                min="0"
-                                max="100"
-                                step="1"
-                            />
-                            <span className="input-suffix">%</span>
-                        </div>
-                    </div>
-
-                    <div className="config-item">
-                        <label>🔮 Enablers</label>
+                        <label>{translations.spikes}</label>
                         <div className="input-group">
                             <input
                                 type="number"

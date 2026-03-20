@@ -16,10 +16,9 @@ export const translations = {
         teamVelocityLabel: "Team Velocity (SP / Day)",
         teamVelocityTooltip: "Total daily velocity of the entire team (Story Points per Day).",
         allocationPct: "Allocation Percentages",
-        bugs: "🐛 Bugs",
+        maintenance: "🛠️ Maintenance",
         committed: "✅ Committed Goals",
-        uncommitted: "📋 Uncommitted Goals",
-        future: "🔮 Future Goals",
+        spikes: "⚡ Spikes",
         techDebt: "🔧 Tech Debt",
 
         // Sprint Manager
@@ -47,7 +46,7 @@ export const translations = {
         grossCapacityTitle: "Team Member Breakdown - Gross Capacity",
         grossCapacityDesc: "Total capacity with vacation and focus factor applied",
         netCapacityTitle: "Team Member Breakdown - Net Capacity",
-        netCapacityDesc: "Capacity after deducting {bugPct}% for bugs and {techDebtPct}% for tech debt",
+        netCapacityDesc: "Capacity for Committed goals only (Maintenance, Spikes, and Tech Debt deducted)",
         sprintAllocation: "Sprint Allocation Breakdown",
         rounding: "Rounding Mode:",
         roundFloor: "Round Down (SAFe Recommended)",
@@ -82,10 +81,9 @@ export const translations = {
         teamVelocityLabel: "Скорость Команды (SP / День)",
         teamVelocityTooltip: "Общая дневная скорость всей команды (Story Points в день).",
         allocationPct: "Проценты Распределения",
-        bugs: "🐛 Баги",
+        maintenance: "🛠️ Техобслуживание",
         committed: "✅ Обязательства",
-        uncommitted: "📋 Доп. Цели",
-        future: "🔮 Будущее",
+        spikes: "⚡ Спайки",
         techDebt: "🔧 Тех. Долг",
 
         // Sprint Manager
@@ -113,7 +111,7 @@ export const translations = {
         grossCapacityTitle: "Разбивка по Участникам - Общий Капаситет",
         grossCapacityDesc: "Полный капаситет с учетом отпусков и фокус-фактора",
         netCapacityTitle: "Разбивка по Участникам - Чистый Капаситет",
-        netCapacityDesc: "Капаситет за вычетом {bugPct}% на баги и {techDebtPct}% на тех. долг",
+        netCapacityDesc: "Капасити только на Committed цели (после вычета Maintenance, Spikes и Tech Debt)",
         sprintAllocation: "Разбивка Аллокации Спринта",
         rounding: "Округление:",
         roundFloor: "Вниз (рек. SAFe)",

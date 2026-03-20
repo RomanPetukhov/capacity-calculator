@@ -110,9 +110,7 @@ const initialSprints = [
 
 const initialConfig = {
   bugPct: 15,
-  committedPct: 50,
-  uncommittedPct: 10,
-  uncommittedEnabled: true, // SAFe: make uncommitted optional
+  committedPct: 60, // Increased to account for removed uncommitted
   enablersPct: 20, // Renamed from futurePct
   techDebtPct: 5,
   historicalIncludesMaintenanceWork: false, // Prevent double-buffering
@@ -142,7 +140,7 @@ function App() {
   });
   const [calculationMethod, setCalculationMethod] = useState(() => {
     const saved = localStorage.getItem('cc_calculationMethod');
-    return saved ? JSON.parse(saved) : 'focusFactor';
+    return saved ? JSON.parse(saved) : 'velocity';
   });
   const [teamVelocity, setTeamVelocity] = useState(() => {
     const saved = localStorage.getItem('cc_teamVelocity');
