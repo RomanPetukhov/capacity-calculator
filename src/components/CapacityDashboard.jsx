@@ -104,6 +104,7 @@ function CapacityDashboard({ employees, sprints, config, setConfig, vacations, c
                 committed: totalCapacity * (getPct('committedPct') / 100),
                 spikes: totalCapacity * (getPct('enablersPct') / 100),
                 techDebt: totalCapacity * (getPct('techDebtPct') / 100),
+                totalPct: getPct('bugPct') + getPct('committedPct') + getPct('enablersPct') + getPct('techDebtPct')
             };
         });
 
@@ -256,7 +257,7 @@ function CapacityDashboard({ employees, sprints, config, setConfig, vacations, c
                     </div>
                 </div>
                 <div className="sprint-cards">
-                    {calculations.sprintTotals.map(({ sprint, totalCapacity, maintenance, committed, spikes, techDebt }) => (
+                    {calculations.sprintTotals.map(({ sprint, totalCapacity, maintenance, committed, spikes, techDebt, totalPct }) => (
                         <div key={sprint.id} className="sprint-card">
                             <div className="sprint-card-header">
                                 <h3>{sprint.name}</h3>
@@ -271,6 +272,11 @@ function CapacityDashboard({ employees, sprints, config, setConfig, vacations, c
                                 {renderAllocationItem(sprint, translations.spikes.split(' ')[1], translations.spikes.split(' ')[0], 'enablersPct', spikes, 'future')}
                                 {renderAllocationItem(sprint, translations.techDebt.split(' ')[1], translations.techDebt.split(' ')[0], 'techDebtPct', techDebt, 'techdebt')}
                             </div>
+                            {Math.abs(totalPct - 100) > 0.01 && (
+                                <div className="allocation-warning">
+                                    {translations.allocationTotalWarning} ({totalPct}%)
+                                </div>
+                            )}
                         </div>
                     ))}
                 </div>

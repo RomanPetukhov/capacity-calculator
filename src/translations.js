@@ -57,6 +57,7 @@ export const translations = {
         dailyShare: "Daily Share",
         totalCapacity: "Total Capacity",
         totalNetCapacity: "Total Net Capacity",
+        allocationTotalWarning: "⚠️ Total allocation must be 100%",
 
         // Save/Load
         save: "Save",
@@ -123,6 +124,7 @@ export const translations = {
         dailyShare: "Дневная доля",
         totalCapacity: "Всего Capacity",
         totalNetCapacity: "Итого",
+        allocationTotalWarning: "⚠️ Сумма должна быть 100%",
 
         // Save/Load
         save: "Сохранить",
