@@ -1,13 +1,29 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './ConfigPanel.css';
 import { translations as allTranslations } from '../translations';
 
-function ConfigPanel({ config, setConfig, calculationMethod, setCalculationMethod, teamVelocity, setTeamVelocity }) {
+function ConfigPanel({ 
+    config, 
+    setConfig, 
+    calculationMethod, 
+    setCalculationMethod, 
+    teamVelocity, 
+    setTeamVelocity,
+    focusFactorSource,
+    setFocusFactorSource
+}) {
     const [fullscreenMedia, setFullscreenMedia] = useState(null);
     const language = 'ru'; 
     const translations = allTranslations[language];
-    // Используем относительный путь без слеша в начале для корректной работы в подпапках GitHub Pages
     const VIDEO_PATH = "instruction.mov";
+
+    // Debug log to catch any prop mismatch
+    useEffect(() => {
+        console.log('--- ConfigPanel Update ---');
+        console.log('Method:', calculationMethod);
+        console.log('Source:', focusFactorSource);
+        console.log('Translations available:', !!translations);
+    }, [calculationMethod, focusFactorSource, translations]);
 
     const InfoIcon = () => (
         <svg className="rich-tooltip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -16,12 +32,16 @@ function ConfigPanel({ config, setConfig, calculationMethod, setCalculationMetho
             <line x1="12" y1="8" x2="12.01" y2="8"></line>
         </svg>
     );
+
     const handleConfigChange = (key, value) => {
         setConfig({ ...config, [key]: parseFloat(value) || 0 });
     };
 
     const totalPct = config.bugPct + config.committedPct + (config.enablersPct || 0) + config.techDebtPct;
     const isValidTotal = Math.abs(totalPct - 100) < 0.01;
+
+    // Use a robust check for the method
+    const isFocusMethod = calculationMethod?.toLowerCase().includes('focus') || calculationMethod === 'focusFactor';
 
     return (
         <div className="card config-panel">
@@ -31,7 +51,7 @@ function ConfigPanel({ config, setConfig, calculationMethod, setCalculationMetho
                 <h3>{translations.calcMethod}</h3>
                 <div className="mode-toggle-group refined">
                     <button
-                        className={`mode-btn ${calculationMethod === 'focusFactor' ? 'active' : ''}`}
+                        className={`mode-btn ${isFocusMethod ? 'active' : ''}`}
                         onClick={() => setCalculationMethod('focusFactor')}
                     >
                         <span className="mode-icon">🎯</span>
@@ -48,6 +68,27 @@ function ConfigPanel({ config, setConfig, calculationMethod, setCalculationMetho
                         </div>
                     </button>
                 </div>
+
+                {/* Sub-menu for Focus Factor source selector */}
+                {isFocusMethod && (
+                    <div className="sub-config-section fade-in" style={{ borderLeft: '3px solid var(--accent-primary)', paddingLeft: '15px' }}>
+                        <label className="sub-label">{translations.focusFactorSource || "📥 Источник данных"}</label>
+                        <div className="source-toggle-group">
+                            <button
+                                className={`source-btn ${focusFactorSource === 'manual' ? 'active' : ''}`}
+                                onClick={() => setFocusFactorSource('manual')}
+                            >
+                                {translations.manualSource || "Manual"}
+                            </button>
+                            <button
+                                className={`source-btn ${focusFactorSource === 'files' ? 'active' : ''}`}
+                                onClick={() => setFocusFactorSource('files')}
+                            >
+                                {translations.filesSource || "From Files"}
+                            </button>
+                        </div>
+                    </div>
+                )}
 
                 {calculationMethod === 'velocity' && (
                     <div className="velocity-input-container">
@@ -150,7 +191,13 @@ function ConfigPanel({ config, setConfig, calculationMethod, setCalculationMetho
                     <span>Total: {totalPct.toFixed(1)}%</span>
                     {!isValidTotal && <span className="warning">⚠️ Should equal 100%</span>}
                 </div>
-            </div>            <FullscreenModal media={fullscreenMedia} onClose={() => setFullscreenMedia(null)} translations={translations} />
+            </div>
+
+            <FullscreenModal 
+                media={fullscreenMedia} 
+                onClose={() => setFullscreenMedia(null)} 
+                translations={translations} 
+            />
         </div>
     );
 }
@@ -179,6 +226,6 @@ const FullscreenModal = ({ media, onClose, translations }) => {
             </div>
         </div>
     );
-}
+};
 
 export default ConfigPanel;

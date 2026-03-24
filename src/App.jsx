@@ -146,6 +146,10 @@ function App() {
     const saved = localStorage.getItem('cc_teamVelocity');
     return saved ? JSON.parse(saved) : 0;
   });
+  const [focusFactorSource, setFocusFactorSource] = useState(() => {
+    const saved = localStorage.getItem('cc_focusFactorSource');
+    return saved ? JSON.parse(saved) : 'manual';
+  });
 
   // Auto-save to localStorage
   useEffect(() => {
@@ -155,7 +159,8 @@ function App() {
     localStorage.setItem('cc_vacations', JSON.stringify(vacations));
     localStorage.setItem('cc_calculationMethod', JSON.stringify(calculationMethod));
     localStorage.setItem('cc_teamVelocity', JSON.stringify(teamVelocity));
-  }, [employees, sprints, config, vacations, calculationMethod, teamVelocity]);
+    localStorage.setItem('cc_focusFactorSource', JSON.stringify(focusFactorSource));
+  }, [employees, sprints, config, vacations, calculationMethod, teamVelocity, focusFactorSource]);
 
   // Prompt before unload
   useEffect(() => {
@@ -271,6 +276,8 @@ function App() {
               setConfig={setConfig}
               calculationMethod={calculationMethod}
               setCalculationMethod={setCalculationMethod}
+              focusFactorSource={focusFactorSource}
+              setFocusFactorSource={setFocusFactorSource}
               teamVelocity={teamVelocity}
               setTeamVelocity={setTeamVelocity}
             />
@@ -297,6 +304,7 @@ function App() {
             employees={employees}
             setEmployees={setEmployees}
             config={config}
+            focusFactorSource={focusFactorSource}
           />
         )}
 
