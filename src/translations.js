@@ -58,6 +58,8 @@ export const translations = {
         totalCapacity: "Total Capacity",
         totalNetCapacity: "Total Net Capacity",
         allocationTotalWarning: "⚠️ Total allocation must be 100%",
+        tooltipTitle: "Find your Team Velocity",
+        tooltipDesc: "Go to your Velocity Chart from Jira or ADO to find the average SP per Day.",
 
         // Save/Load
         save: "Save",
@@ -125,6 +127,8 @@ export const translations = {
         totalCapacity: "Всего Capacity",
         totalNetCapacity: "Итого",
         allocationTotalWarning: "⚠️ Сумма должна быть 100%",
+        tooltipTitle: "Как найти скорость команды?",
+        tooltipDesc: "Перейдите в Velocity Chart в Jira или ADO, чтобы найти среднее значение SP в день.",
 
         // Save/Load
         save: "Сохранить",
