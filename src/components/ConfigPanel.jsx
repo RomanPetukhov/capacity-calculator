@@ -6,6 +6,7 @@ function ConfigPanel({ config, setConfig, calculationMethod, setCalculationMetho
     const [fullscreenMedia, setFullscreenMedia] = useState(null);
     const language = 'ru'; 
     const translations = allTranslations[language];
+    const VIDEO_PATH = "/1 инструкция.mov";
 
     const InfoIcon = () => (
         <svg className="rich-tooltip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -50,11 +51,9 @@ function ConfigPanel({ config, setConfig, calculationMethod, setCalculationMetho
                                 <div className="rich-tooltip-content">
                                     <h4>{translations.avgVelocityMethod}</h4>
                                     <p>{translations.avgVelocityTooltip}</p>
-                                    <div className="rich-tooltip-media" onClick={(e) => { e.stopPropagation(); setFullscreenMedia('velocity-method-instruction'); }}>
+                                    <div className="rich-tooltip-media" onClick={(e) => { e.stopPropagation(); setFullscreenMedia(VIDEO_PATH); }}>
                                         <div className="media-zoom-overlay">⛶ Click to Expand</div>
-                                        <div className="media-placeholder-art">
-                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-                                        </div>
+                                        <video src={VIDEO_PATH} autoPlay loop muted playsInline className="tooltip-video-preview" />
                                     </div>
                                 </div>
                             </div>
@@ -72,11 +71,9 @@ function ConfigPanel({ config, setConfig, calculationMethod, setCalculationMetho
                                     <div className="rich-tooltip-content">
                                         <h4>{translations.tooltipTitle}</h4>
                                         <p>{translations.tooltipDesc}</p>
-                                        <div className="rich-tooltip-media" onClick={(e) => { e.stopPropagation(); setFullscreenMedia('velocity-input-instruction'); }}>
+                                        <div className="rich-tooltip-media" onClick={(e) => { e.stopPropagation(); setFullscreenMedia(VIDEO_PATH); }}>
                                             <div className="media-zoom-overlay">⛶ Click to Expand</div>
-                                            <div className="media-placeholder-art">
-                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-                                            </div>
+                                            <video src={VIDEO_PATH} autoPlay loop muted playsInline className="tooltip-video-preview" />
                                         </div>
                                     </div>
                                 </div>
@@ -176,17 +173,18 @@ const FullscreenModal = ({ media, onClose, translations }) => {
         <div className="tooltip-modal-overlay" onClick={onClose}>
             <div className="tooltip-modal-content" onClick={e => e.stopPropagation()}>
                 <button className="modal-close-btn" onClick={onClose}>×</button>
-                <div className="modal-body">
-                    <div className="modal-media-placeholder-fullscreen">
-                        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-                            <line x1="8" y1="21" x2="16" y2="21"></line>
-                            <line x1="12" y1="17" x2="12" y2="21"></line>
-                        </svg>
-                        <h3>{translations.tooltipTitle}</h3>
-                        <p>{translations.tooltipDesc}</p>
-                        <p className="modal-hint">Place your instruction (e.g. <code>velocity.mp4</code> or <code>velocity.gif</code>) in the <code>public/</code> folder.</p>
-                    </div>
+                <div className="modal-header-fullscreen">
+                    <h3>{translations.tooltipTitle}</h3>
+                    <p>{translations.tooltipDesc}</p>
+                </div>
+                <div className="modal-body-fullscreen">
+                    <video 
+                        src={media} 
+                        autoPlay 
+                        loop 
+                        controls 
+                        className="fullscreen-video-player"
+                    />
                 </div>
             </div>
         </div>
