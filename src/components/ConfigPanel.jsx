@@ -46,19 +46,6 @@ function ConfigPanel({ config, setConfig, calculationMethod, setCalculationMetho
                             <span className="mode-icon">🚀</span>
                             <span className="mode-label">{translations.avgVelocityMethod}</span>
                         </div>
-                        <div className="rich-tooltip-container absolute-top-right">
-                            <InfoIcon />
-                            <div className="rich-tooltip-popover">
-                                <div className="rich-tooltip-content">
-                                    <h4>{translations.avgVelocityMethod}</h4>
-                                    <p>{translations.avgVelocityTooltip}</p>
-                                    <div className="rich-tooltip-media" onClick={(e) => { e.stopPropagation(); setFullscreenMedia(VIDEO_PATH); }}>
-                                        <div className="media-zoom-overlay">⛶ Click to Expand</div>
-                                        <video src={VIDEO_PATH} autoPlay loop muted playsInline className="tooltip-video-preview" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </button>
                 </div>
 
