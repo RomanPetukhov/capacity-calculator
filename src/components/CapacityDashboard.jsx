@@ -234,33 +234,9 @@ function CapacityDashboard({ employees, sprints, config, setConfig, vacations, c
                             </div>
                         </div>
 
-                        <div className="team-sp-container">
-                            <div className="team-sp-label-row">
-                                <span className="rounding-label">Team SP/Day:</span>
-                                <div className="info-icon-wrapper">
-                                    <svg className="info-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                        <circle cx="12" cy="12" r="10"></circle>
-                                        <line x1="12" y1="16" x2="12" y2="12"></line>
-                                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                                    </svg>
-                                    <div className="rich-tooltip">
-                                        <div className="tooltip-content">
-                                            <h4>{translations.tooltipTitle}</h4>
-                                            <p>{translations.tooltipDesc}</p>
-                                            <div className="tooltip-media">
-                                                <div style={{ height: '140px', background: 'linear-gradient(45deg, #0f172a, #1e293b)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#334155' }}>
-                                                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-                                                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-                                                        <line x1="8" y1="21" x2="16" y2="21"></line>
-                                                        <line x1="12" y1="17" x2="12" y2="21"></line>
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <span style={{ fontSize: '1.2rem', fontWeight: '800', color: 'var(--accent-primary)', fontFamily: 'var(--font-mono)', lineHeight: '1' }}>
+                        <div className="team-sp-display" style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                            <span className="rounding-label">Team SP/Day:</span>
+                            <span style={{ fontSize: '1.2rem', fontWeight: '800', color: 'var(--accent-primary)', fontFamily: 'var(--font-mono)' }}>
                                 {adjustedTeamSP.toFixed(2)}
                             </span>
                         </div>

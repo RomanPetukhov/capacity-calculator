@@ -1,9 +1,19 @@
+import { useState } from 'react';
 import './ConfigPanel.css';
 import { translations as allTranslations } from '../translations';
 
 function ConfigPanel({ config, setConfig, calculationMethod, setCalculationMethod, teamVelocity, setTeamVelocity }) {
-    const language = 'ru'; // Determine language if possible, defaulting to ru as per user preference
+    const [fullscreenMedia, setFullscreenMedia] = useState(null);
+    const language = 'ru'; 
     const translations = allTranslations[language];
+
+    const InfoIcon = () => (
+        <svg className="rich-tooltip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+        </svg>
+    );
     const handleConfigChange = (key, value) => {
         setConfig({ ...config, [key]: parseFloat(value) || 0 });
     };
@@ -34,10 +44,19 @@ function ConfigPanel({ config, setConfig, calculationMethod, setCalculationMetho
                             <span className="mode-icon">🚀</span>
                             <span className="mode-label">{translations.avgVelocityMethod}</span>
                         </div>
-                        <div className="tooltip-container">
-                            <span className="tooltip-icon">ℹ️</span>
-                            <div className="tooltip-text">
-                                {translations.avgVelocityTooltip}
+                        <div className="rich-tooltip-container absolute-top-right">
+                            <InfoIcon />
+                            <div className="rich-tooltip-popover">
+                                <div className="rich-tooltip-content">
+                                    <h4>{translations.avgVelocityMethod}</h4>
+                                    <p>{translations.avgVelocityTooltip}</p>
+                                    <div className="rich-tooltip-media" onClick={(e) => { e.stopPropagation(); setFullscreenMedia('velocity-method-instruction'); }}>
+                                        <div className="media-zoom-overlay">⛶ Click to Expand</div>
+                                        <div className="media-placeholder-art">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </button>
@@ -47,10 +66,19 @@ function ConfigPanel({ config, setConfig, calculationMethod, setCalculationMetho
                     <div className="velocity-input-container">
                         <label className="velocity-label">
                             {translations.teamVelocityLabel}
-                            <div className="tooltip-container" style={{ marginLeft: '8px', display: 'inline-flex' }}>
-                                <span className="tooltip-icon">ℹ️</span>
-                                <div className="tooltip-text">
-                                    {translations.teamVelocityTooltip}
+                            <div className="rich-tooltip-container" style={{ marginLeft: '12px' }}>
+                                <InfoIcon />
+                                <div className="rich-tooltip-popover">
+                                    <div className="rich-tooltip-content">
+                                        <h4>{translations.tooltipTitle}</h4>
+                                        <p>{translations.tooltipDesc}</p>
+                                        <div className="rich-tooltip-media" onClick={(e) => { e.stopPropagation(); setFullscreenMedia('velocity-input-instruction'); }}>
+                                            <div className="media-zoom-overlay">⛶ Click to Expand</div>
+                                            <div className="media-placeholder-art">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </label>
@@ -137,9 +165,30 @@ function ConfigPanel({ config, setConfig, calculationMethod, setCalculationMetho
                     <span>Total: {totalPct.toFixed(1)}%</span>
                     {!isValidTotal && <span className="warning">⚠️ Should equal 100%</span>}
                 </div>
+            </div>            <FullscreenModal media={fullscreenMedia} onClose={() => setFullscreenMedia(null)} translations={translations} />
+        </div>
+    );
+}
+
+const FullscreenModal = ({ media, onClose, translations }) => {
+    if (!media) return null;
+    return (
+        <div className="tooltip-modal-overlay" onClick={onClose}>
+            <div className="tooltip-modal-content" onClick={e => e.stopPropagation()}>
+                <button className="modal-close-btn" onClick={onClose}>×</button>
+                <div className="modal-body">
+                    <div className="modal-media-placeholder-fullscreen">
+                        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                        </svg>
+                        <h3>{translations.tooltipTitle}</h3>
+                        <p>{translations.tooltipDesc}</p>
+                        <p className="modal-hint">Place your instruction (e.g. <code>velocity.mp4</code> or <code>velocity.gif</code>) in the <code>public/</code> folder.</p>
+                    </div>
+                </div>
             </div>
-
-
         </div>
     );
 }
