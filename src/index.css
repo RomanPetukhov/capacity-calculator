@@ -66,6 +66,7 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 #root {
@@ -267,9 +268,9 @@ input:hover, textarea:hover, select:hover {
 .rich-tooltip-popover {
     position: absolute;
     bottom: calc(100% + 12px);
-    left: 50%;
-    transform: translateX(-50%) translateY(10px);
-    width: 300px;
+    right: -10px;
+    transform: translateY(10px);
+    width: 320px;
     background: var(--bg-elevated);
     border: 1px solid var(--border-medium);
     border-radius: 16px;
@@ -285,7 +286,7 @@ input:hover, textarea:hover, select:hover {
 .rich-tooltip-container:hover .rich-tooltip-popover {
     opacity: 1;
     visibility: visible;
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(0);
     pointer-events: auto;
 }
 
@@ -294,8 +295,7 @@ input:hover, textarea:hover, select:hover {
     content: '';
     position: absolute;
     top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
+    right: 12px;
     border-width: 8px;
     border-style: solid;
     border-color: var(--bg-elevated) transparent transparent transparent;
