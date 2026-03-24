@@ -291,13 +291,6 @@ function App() {
           </section>
         </div>
 
-        {/* Team Members */}
-        <TeamManager
-          employees={employees}
-          setEmployees={setEmployees}
-          calculationMethod={calculationMethod}
-        />
-
         {/* Focus Factor Calculator - Only if method is focusFactor */}
         {calculationMethod === 'focusFactor' && (
           <FocusFactorCalculator
@@ -307,6 +300,13 @@ function App() {
             focusFactorSource={focusFactorSource}
           />
         )}
+
+        {/* Team Members */}
+        <TeamManager
+          employees={employees}
+          setEmployees={setEmployees}
+          calculationMethod={calculationMethod}
+        />
 
         {/* Capacity Planning Sections */}
         <div className="layout-grid">

@@ -119,30 +119,40 @@ function FocusFactorCalculator({ employees, setEmployees, config, focusFactorSou
             console.log('Tempo Data Sample:', tempoData[0]);
             console.log('Jira Data Sample:', jiraData[0]);
 
-            // Tempo Processing: unique dates with hours > 0
-            // Headers for Tempo: User / Worker / Full Name, Work Date / Date, Hours / Logged Hours
-            const tempoStats = {};
-            tempoData.forEach(row => {
-                const name = row['Full Name'] || row['Full name'] || row['Worker'] || row['User'];
-                const date = row['Work Date'] || row['Date'] || row['Date Started'];
-                const hours = parseFloat(row['Hours'] || row['Hours Logged'] || row['Time Spent (h)'] || 0);
+            // Normalization helper: remove dots, spaces, underscores and to lowercase
+            const normalize = (str) => (str || '').toString().toLowerCase().replace(/[\s._-]/g, '');
 
-                if (name && date && hours > 0) {
-                    const normName = name.trim().toLowerCase();
-                    if (!tempoStats[normName]) tempoStats[normName] = new Set();
-                    tempoStats[normName].add(date);
+            // Tempo Processing: unique dates with hours > 0
+            const tempoStats = {}; 
+            tempoData.forEach(row => {
+                // Try Username first (more reliable for matching Jira Assignee), then Full Name
+                const username = row['Username'] || row['username'];
+                const fullName = row['Full Name'] || row['Full name'] || row['Worker'] || row['User'];
+                const date = row['Work Date'] || row['Date'] || row['Date Started'] || row['work date'];
+                const hours = parseFloat(row['Hours'] || row['Hours Logged'] || row['Time Spent (h)'] || row['hours'] || 0);
+
+                const identifier = username || fullName;
+
+                if (identifier && date && hours > 0) {
+                    const normId = normalize(identifier);
+                    if (!tempoStats[normId]) {
+                        tempoStats[normId] = {
+                            dates: new Set(),
+                            displayName: fullName || username
+                        };
+                    }
+                    tempoStats[normId].dates.add(date.split(' ')[0]); // Extract date part if it has time
                 }
             });
 
             // Jira Processing: sum SP by Assignee
-            // Headers for Jira: Assignee, Custom field (Story Points)
             const jiraStats = {};
             jiraData.forEach(row => {
-                const assignee = row['Assignee'];
-                const sp = parseFloat(row['Custom field (Story Points)'] || 0);
+                const assignee = row['Assignee'] || row['assignee'];
+                const sp = parseFloat(row['Custom field (Story Points)'] || row['Story Points'] || 0);
 
                 if (assignee && sp > 0) {
-                    const normAssignee = assignee.trim().toLowerCase();
+                    const normAssignee = normalize(assignee);
                     if (!jiraStats[normAssignee]) jiraStats[normAssignee] = 0;
                     jiraStats[normAssignee] += sp;
                 }
@@ -154,43 +164,60 @@ function FocusFactorCalculator({ employees, setEmployees, config, focusFactorSou
                 ...Object.keys(jiraStats)
             ]);
 
-            const updatedEmployees = [];
             let nextId = Math.max(...employees.map(e => e.id), 0) + 1;
+            
+            // Map to track which employees from the existing list were updated
+            const updatedExistingIds = new Set();
+            
+            const updatedEmployees = employees.map(emp => {
+                const normEmpName = normalize(emp.name);
+                const normJiraName = emp.jiraUsername ? normalize(emp.jiraUsername) : null;
+                
+                // Try to find matching data in our parsed stats
+                const matchId = [...allUsers].find(id => id === normEmpName || id === normJiraName);
+                
+                if (matchId) {
+                    updatedExistingIds.add(emp.id);
+                    const workingDays = tempoStats[matchId]?.dates.size || 0;
+                    const storyPoints = jiraStats[matchId] || 0;
+                    const calculatedFF = workingDays > 0 ? storyPoints / workingDays : emp.focusFactor;
 
-            allUsers.forEach(normName => {
-                const workingDays = tempoStats[normName]?.size || 0;
-                const storyPoints = jiraStats[normName] || 0;
-                const focusFactor = workingDays > 0 ? storyPoints / workingDays : 0.8;
-
-                // Find existing employee or create new
-                const existing = employees.find(e => 
-                    e.name.trim().toLowerCase() === normName || 
-                    (e.jiraUsername && e.jiraUsername.toLowerCase() === normName)
-                );
-
-                if (existing) {
-                    updatedEmployees.push({
-                        ...existing,
-                        focusFactor: focusFactor,
-                        // We set a single "Virtual Sprint" for historical data from files
+                    return {
+                        ...emp,
+                        focusFactor: calculatedFF,
                         historicalData: [{
-                            sprintName: 'Imported History',
+                            sprintName: 'Imported (Files)',
                             actualSP: storyPoints,
                             availableDays: workingDays,
                             excludeFromCalculation: false
                         }]
-                    });
-                } else {
-                    // Create new employee if not found
+                    };
+                }
+                return emp;
+            });
+
+            // Add new employees found in files but not in the app
+            allUsers.forEach(matchId => {
+                // Check if this match was already used to update an existing employee
+                const alreadyAdded = employees.some(e => 
+                    normalize(e.name) === matchId || (e.jiraUsername && normalize(e.jiraUsername) === matchId)
+                );
+
+                if (!alreadyAdded) {
+                    const workingDays = tempoStats[matchId]?.dates.size || 0;
+                    const storyPoints = jiraStats[matchId] || 0;
+                    const calculatedFF = workingDays > 0 ? storyPoints / workingDays : 0.8;
+                    const displayName = tempoStats[matchId]?.displayName || matchId;
+
                     updatedEmployees.push({
                         id: nextId++,
-                        name: normName.split('.').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' '),
+                        name: displayName.split(' ').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' '),
                         role: 'developer',
-                        focusFactor: focusFactor,
+                        focusFactor: calculatedFF,
                         participatesInDevelopment: true,
-                        jiraUsername: normName,
+                        jiraUsername: matchId,
                         historicalData: [{
-                            sprintName: 'Imported History',
+                            sprintName: 'Imported (Files)',
                             actualSP: storyPoints,
                             availableDays: workingDays,
                             excludeFromCalculation: false
@@ -199,9 +226,6 @@ function FocusFactorCalculator({ employees, setEmployees, config, focusFactorSou
                 }
             });
 
-            // If we have existing employees not in the files, keep them? 
-            // The user said: "Автоматически должны быть вписаны все сторудники (с возможностью удаления)"
-            // So replacement seems best, or merge. Let's merge but prioritize file data.
             setEmployees(updatedEmployees);
             setSuccess(true);
             setTimeout(() => setSuccess(false), 3000);
