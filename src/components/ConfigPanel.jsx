@@ -6,7 +6,7 @@ function ConfigPanel({ config, setConfig, calculationMethod, setCalculationMetho
     const [fullscreenMedia, setFullscreenMedia] = useState(null);
     const language = 'ru'; 
     const translations = allTranslations[language];
-    const VIDEO_PATH = "/1 инструкция.mov";
+    const VIDEO_PATH = "/instruction.mov";
 
     const InfoIcon = () => (
         <svg className="rich-tooltip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
