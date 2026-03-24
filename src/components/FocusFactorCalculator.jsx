@@ -175,7 +175,7 @@ function FocusFactorCalculator({ employees, setEmployees, config, focusFactorSou
                 ...Object.keys(jiraStats)
             ]);
 
-            let nextId = Math.max(...employees.map(e => e.id), 0) + 1;
+            let nextId = Date.now();
             
             // Map to track which employees from the existing list were updated
             const updatedExistingIds = new Set();

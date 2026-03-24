@@ -5,7 +5,7 @@ function TeamManager({ employees, setEmployees, calculationMethod }) {
     const language = 'ru';
     const translations = allTranslations[language];
     const addEmployee = () => {
-        const newId = Math.max(...employees.map(e => e.id), 0) + 1;
+        const newId = Date.now();
         setEmployees([...employees, {
             id: newId,
             name: `Employee ${newId}`,
@@ -36,6 +36,12 @@ function TeamManager({ employees, setEmployees, calculationMethod }) {
     const updateEmployeeParticipation = (id, participates) => {
         setEmployees(employees.map(e =>
             e.id === id ? { ...e, participatesInDevelopment: participates } : e
+        ));
+    };
+
+    const updateEmployeeFocusFactor = (id, value) => {
+        setEmployees(employees.map(e =>
+            e.id === id ? { ...e, focusFactor: parseFloat(value) || 0 } : e
         ));
     };
 
@@ -117,10 +123,26 @@ function TeamManager({ employees, setEmployees, calculationMethod }) {
                                     </div>
 
                                     {calculationMethod === 'focusFactor' && (
-                                        <div className="focus-display">
-                                            <span className="focus-label">{translations.avgVelocity}</span>
-                                            <span className="focus-value">{emp.focusFactor.toFixed(2)}</span>
-                                            {emp.trend && <span className="trend-arrow">{emp.trend}</span>}
+                                        <div className="focus-stats-container">
+                                            {emp.historicalData && emp.historicalData.length > 0 && (
+                                                <div className="focus-historical-stats" style={{ display: 'flex', gap: '8px', fontSize: '11px', color: 'var(--text-muted)', marginBottom: '4px' }}>
+                                                    <span title="Отработанные дни">⏱ {emp.historicalData.reduce((a, c) => a + (c.availableDays || 0), 0).toFixed(1)}d</span>
+                                                    <span title="Закрытые Story Points">🎫 {emp.historicalData.reduce((a, c) => a + (c.actualSP || 0), 0).toFixed(1)} SP</span>
+                                                </div>
+                                            )}
+                                            <div className="focus-display editable" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                                <span className="focus-label">{translations.avgVelocity}</span>
+                                                <input
+                                                    type="number"
+                                                    value={emp.focusFactor || 0.8}
+                                                    onChange={(e) => updateEmployeeFocusFactor(emp.id, e.target.value)}
+                                                    className="focus-input"
+                                                    style={{ width: '60px', padding: '2px 4px', fontSize: '13px', background: 'var(--surface)', color: 'var(--accent-primary)', border: '1px solid var(--border-color)', borderRadius: '4px', textAlign: 'center' }}
+                                                    step="0.05"
+                                                    min="0.1"
+                                                />
+                                                {emp.trend && <span className="trend-arrow">{emp.trend}</span>}
+                                            </div>
                                         </div>
                                     )}
 
