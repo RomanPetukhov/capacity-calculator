@@ -242,3 +242,185 @@ input:hover, textarea:hover, select:hover {
   background-size: 1000px 100%;
   animation: shimmer 2s infinite;
 }
+
+/* --- Rich Tooltip UI --- */
+.rich-tooltip-container {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    cursor: help;
+}
+
+.rich-tooltip-icon {
+    width: 18px;
+    height: 18px;
+    color: var(--accent-primary);
+    opacity: 0.8;
+    transition: all var(--transition-fast);
+}
+
+.rich-tooltip-container:hover .rich-tooltip-icon {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.rich-tooltip-popover {
+    position: absolute;
+    bottom: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    width: 300px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-medium);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.rich-tooltip-container:hover .rich-tooltip-popover {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+}
+
+/* Triangle for popover */
+.rich-tooltip-popover::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 8px;
+    border-style: solid;
+    border-color: var(--bg-elevated) transparent transparent transparent;
+}
+
+.rich-tooltip-content h4 {
+    margin: 0 0 8px 0;
+    font-size: 1rem;
+    color: var(--text-primary);
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+}
+
+.rich-tooltip-content p {
+    margin: 0 0 16px 0;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.rich-tooltip-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #000;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: zoom-in;
+}
+
+.media-zoom-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 2;
+}
+
+.rich-tooltip-media:hover .media-zoom-overlay {
+    opacity: 1;
+}
+
+.tooltip-video-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Fullscreen Modal */
+.tooltip-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 10, 15, 0.85);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.tooltip-modal-content {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-medium);
+    border-radius: 24px;
+    width: 90%;
+    max-width: 1000px;
+    padding: 32px;
+    position: relative;
+    box-shadow: var(--shadow-xl);
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    padding-bottom: 4px;
+    z-index: 10;
+}
+
+.modal-header-fullscreen {
+    margin-bottom: 24px;
+    padding-right: 48px;
+}
+
+.modal-header-fullscreen h3 {
+    margin: 0 0 8px 0;
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+.modal-header-fullscreen p {
+    margin: 0;
+    color: #94a3b8;
+    font-size: 0.95rem;
+}
+
+.modal-body-fullscreen {
+    width: 100%;
+    max-height: 70vh;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.fullscreen-video-player {
+    width: 100%;
+    max-height: 70vh;
+    display: block;
+}

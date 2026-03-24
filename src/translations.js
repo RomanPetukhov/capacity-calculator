@@ -60,6 +60,8 @@ export const translations = {
         allocationTotalWarning: "⚠️ Total allocation must be 100%",
         tooltipTitle: "Find your Team Velocity",
         tooltipDesc: "Go to Agile Hive, select your team, select the previous quarter, and copy the velocity value.",
+        allocationTooltipTitle: "How to log Story Points?",
+        allocationTooltipDesc: "Log story points through Team Breakouts. Check the quarter before entry.",
 
         // Save/Load
         save: "Save",
@@ -129,6 +131,8 @@ export const translations = {
         allocationTotalWarning: "⚠️ Сумма должна быть 100%",
         tooltipTitle: "Как найти скорость команды?",
         tooltipDesc: "Перейдите в Agile Hive, выберите свою команду, выберите прошлый квартал, скопируйте velocity",
+        allocationTooltipTitle: "Как заносить сторипоинты?",
+        allocationTooltipDesc: "Кол-во сторипоитов заносим через Team Breakouts. Перед занесением проверьте квартал",
 
         // Save/Load
         save: "Сохранить",

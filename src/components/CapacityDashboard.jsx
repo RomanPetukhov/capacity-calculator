@@ -152,6 +152,17 @@ function CapacityDashboard({ employees, sprints, config, setConfig, vacations, c
         );
     };
 
+    const VIDEO_PATH_2 = "2.mov";
+    const [fullscreenMedia, setFullscreenMedia] = useState(null);
+
+    const InfoIcon = () => (
+        <svg className="rich-tooltip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+        </svg>
+    );
+
     return (
         <div className="card capacity-dashboard">
             <h2>{translations.capacityDashboardTitle}</h2>
@@ -214,7 +225,22 @@ function CapacityDashboard({ employees, sprints, config, setConfig, vacations, c
             <div className="sprint-cards-section highlighted-section">
                 <div className="sprint-cards-header">
                     <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-                        <h3>{translations.sprintAllocation}</h3>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <h3>{translations.sprintAllocation}</h3>
+                            <div className="rich-tooltip-container">
+                                <InfoIcon />
+                                <div className="rich-tooltip-popover">
+                                    <div className="rich-tooltip-content">
+                                        <h4>{translations.allocationTooltipTitle}</h4>
+                                        <p>{translations.allocationTooltipDesc}</p>
+                                        <div className="rich-tooltip-media" onClick={(e) => { e.stopPropagation(); setFullscreenMedia(VIDEO_PATH_2); }}>
+                                            <div className="media-zoom-overlay">⛶ Click to Expand</div>
+                                            <video src={VIDEO_PATH_2} autoPlay loop muted playsInline className="tooltip-video-preview" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <div className="factor-selector" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                             <label className="rounding-label">Correction Factor:</label>
@@ -381,6 +407,40 @@ function CapacityDashboard({ employees, sprints, config, setConfig, vacations, c
                             </tr>
                         </tfoot>
                     </table>
+                </div>
+            </div>
+            <FullscreenModal 
+                media={fullscreenMedia} 
+                onClose={() => setFullscreenMedia(null)} 
+                translations={{
+                    tooltipTitle: translations.allocationTooltipTitle,
+                    tooltipDesc: translations.allocationTooltipDesc
+                }} 
+            />
+        </div>
+    );
+}
+
+const FullscreenModal = ({ media, onClose, translations }) => {
+    if (!media) return null;
+    return (
+        <div className="tooltip-modal-overlay" onClick={onClose}>
+            <div className="tooltip-modal-content" onClick={e => e.stopPropagation()}>
+                <button className="modal-close-btn" onClick={onClose}>×</button>
+                <div className="modal-header-fullscreen">
+                    <h3>{translations.tooltipTitle}</h3>
+                    <p>{translations.tooltipDesc}</p>
+                </div>
+                <div className="modal-body-fullscreen">
+                    <video 
+                        src={media} 
+                        autoPlay 
+                        loop 
+                        muted
+                        playsInline
+                        controls 
+                        className="fullscreen-video-player"
+                    />
                 </div>
             </div>
         </div>
