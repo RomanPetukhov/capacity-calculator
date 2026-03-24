@@ -122,14 +122,25 @@ function FocusFactorCalculator({ employees, setEmployees, config, focusFactorSou
             // Normalization helper: remove dots, spaces, underscores and to lowercase
             const normalize = (str) => (str || '').toString().toLowerCase().replace(/[\s._-]/g, '');
 
+            // Helper to get value from row case-insensitively
+            const getVal = (row, possibleKeys) => {
+                const rowKeys = Object.keys(row);
+                for (const pKey of possibleKeys) {
+                    const pKeyLower = pKey.toLowerCase();
+                    const foundKey = rowKeys.find(k => k.trim().toLowerCase() === pKeyLower);
+                    if (foundKey) return row[foundKey];
+                }
+                return undefined;
+            };
+
             // Tempo Processing: unique dates with hours > 0
             const tempoStats = {}; 
             tempoData.forEach(row => {
-                // Try Username first (more reliable for matching Jira Assignee), then Full Name
-                const username = row['Username'] || row['username'];
-                const fullName = row['Full Name'] || row['Full name'] || row['Worker'] || row['User'];
-                const date = row['Work Date'] || row['Date'] || row['Date Started'] || row['work date'];
-                const hours = parseFloat(row['Hours'] || row['Hours Logged'] || row['Time Spent (h)'] || row['hours'] || 0);
+                const username = getVal(row, ['username', 'user', 'worker']);
+                const fullName = getVal(row, ['full name', 'fullname', 'name']);
+                const date = getVal(row, ['work date', 'date', 'date started']);
+                const hoursVal = getVal(row, ['hours', 'hours logged', 'time spent (h)']);
+                const hours = parseFloat(hoursVal || 0);
 
                 const identifier = username || fullName;
 
@@ -148,8 +159,8 @@ function FocusFactorCalculator({ employees, setEmployees, config, focusFactorSou
             // Jira Processing: sum SP by Assignee
             const jiraStats = {};
             jiraData.forEach(row => {
-                const assignee = row['Assignee'] || row['assignee'];
-                const sp = parseFloat(row['Custom field (Story Points)'] || row['Story Points'] || 0);
+                const assignee = getVal(row, ['assignee']);
+                const sp = parseFloat(getVal(row, ['custom field (story points)', 'story points']) || 0);
 
                 if (assignee && sp > 0) {
                     const normAssignee = normalize(assignee);
