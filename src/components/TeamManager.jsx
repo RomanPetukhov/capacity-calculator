@@ -134,12 +134,12 @@ function TeamManager({ employees, setEmployees, calculationMethod }) {
                                                 <span className="focus-label">{translations.avgVelocity}</span>
                                                 <input
                                                     type="number"
-                                                    value={emp.focusFactor || 0.8}
+                                                    value={emp.focusFactor !== undefined && emp.focusFactor !== null ? emp.focusFactor : 0.8}
                                                     onChange={(e) => updateEmployeeFocusFactor(emp.id, e.target.value)}
                                                     className="focus-input"
                                                     style={{ width: '60px', padding: '2px 4px', fontSize: '13px', background: 'var(--surface)', color: 'var(--accent-primary)', border: '1px solid var(--border-color)', borderRadius: '4px', textAlign: 'center' }}
                                                     step="0.05"
-                                                    min="0.1"
+                                                    min="0"
                                                 />
                                                 {emp.trend && <span className="trend-arrow">{emp.trend}</span>}
                                             </div>
