@@ -59,6 +59,11 @@
   box-sizing: border-box;
 }
 
+html {
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+}
+
 body {
   font-family: var(--font-sans);
   background: var(--bg-primary);
@@ -162,7 +167,6 @@ input:hover, textarea:hover, select:hover {
 .card:hover {
   border-color: var(--border-medium);
   box-shadow: var(--shadow-lg);
-  transform: translateY(-2px);
 }
 
 .btn-primary {
@@ -268,8 +272,7 @@ input:hover, textarea:hover, select:hover {
 .rich-tooltip-popover {
     position: absolute;
     bottom: calc(100% + 12px);
-    right: -10px;
-    transform: translateY(10px);
+    right: 0px;
     width: 320px;
     background: var(--bg-elevated);
     border: 1px solid var(--border-medium);
@@ -278,7 +281,7 @@ input:hover, textarea:hover, select:hover {
     box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
     opacity: 0;
     visibility: hidden;
-    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    transition: all 0.2s ease-out;
     z-index: 1000;
     pointer-events: none;
 }
@@ -286,8 +289,18 @@ input:hover, textarea:hover, select:hover {
 .rich-tooltip-container:hover .rich-tooltip-popover {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
     pointer-events: auto;
+}
+
+/* Hover bridge to prevent flickering when moving cursor from icon to popover */
+.rich-tooltip-popover::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background: transparent;
 }
 
 /* Triangle for popover */
