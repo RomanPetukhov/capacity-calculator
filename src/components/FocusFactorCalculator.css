@@ -317,6 +317,13 @@
     background: rgba(16, 185, 129, 0.05);
 }
 
+.zone-tooltip-wrapper {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 10;
+}
+
 .file-label {
     display: flex;
     flex-direction: column;

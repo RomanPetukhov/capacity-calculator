@@ -29,6 +29,16 @@ export const translations = {
         errorParsing: "Error parsing files. Please check the format.",
         successParsing: "Data successfully imported!",
 
+        // File Tooltips
+        tempoTooltipTitle: "How to export Tempo data?",
+        tempoTooltipDesc: "Click the link below to generate the report in Tempo, then download it as CSV (Worklogs).",
+        tempoLinkText: "Open Tempo Report",
+        tempoLink: "https://jira.mwnts.net/secure/Tempo.jspa#/reports/logged-time?projectKey=RUIT&includeSubtasks=true&dateDisplayType=days&days=undefined&from=2025-10-30&to=2026-01-14&periodKey=null&periodType=FIXED&subPeriodType=MONTH&viewType=TIMESHEET&order=DESCENDING&sortBy=WORKED_COLUMN&columns=WORKED_COLUMN&columns=REMAINING_ESTIMATE_COLUMN&columns=WORKER_COLUMN&columns=PORTION_OF_REQUIRED_COLUMN&columns=REQUIRED_HOURS_COLUMN&columns=BILLABLE_COLUMN&columns=PLAN_COLUMN&columns=ORIGINAL_ESTIMATE_COLUMN&columns=ACCOUNT_COLUMN&columns=LOG_DELAY_COLUMN&columns=WORKLOG_CREATED_DATE_COLUMN&groupBy=project&groupBy=worker&issueLists=null",
+        jiraTooltipTitle: "How to export Jira data?",
+        jiraTooltipDesc: "Click the link below to get the needed issues in Jira, then export them as CSV.",
+        jiraLinkText: "Open Jira Report",
+        jiraLink: "https://jira.mwnts.net/issues/?jql=project%20%3D%20RUIT%20AND%20issuetype%20in%20(%22Administrative%20task%22%2C%20Bug%2C%20Enabler%2C%20Maintenance%2C%20Spike%2C%20Story%2C%20%22Tech%20Debt%22)%20AND%20status%20%3D%20Done%20AND%20cf%5B11100%5D%20%3D%20185%20ORDER%20BY%20priority%20DESC%2C%20updated%20DESC",
+
         // Sprint Manager
         sprintName: "Sprint Name",
         startDate: "Start Date",
@@ -106,6 +116,16 @@ export const translations = {
         processFiles: "Рассчитать Focus Factor",
         errorParsing: "Ошибка при парсинге файлов. Проверьте формат.",
         successParsing: "Данные успешно импортированы!",
+
+        // File Tooltips
+        tempoTooltipTitle: "Где взять отчет Tempo?",
+        tempoTooltipDesc: "Перейдите по ссылке ниже, чтобы сгенерировать отчет, затем скачайте его как CSV (Worklogs).",
+        tempoLinkText: "Открыть отчет Tempo",
+        tempoLink: "https://jira.mwnts.net/secure/Tempo.jspa#/reports/logged-time?projectKey=RUIT&includeSubtasks=true&dateDisplayType=days&days=undefined&from=2025-10-30&to=2026-01-14&periodKey=null&periodType=FIXED&subPeriodType=MONTH&viewType=TIMESHEET&order=DESCENDING&sortBy=WORKED_COLUMN&columns=WORKED_COLUMN&columns=REMAINING_ESTIMATE_COLUMN&columns=WORKER_COLUMN&columns=PORTION_OF_REQUIRED_COLUMN&columns=REQUIRED_HOURS_COLUMN&columns=BILLABLE_COLUMN&columns=PLAN_COLUMN&columns=ORIGINAL_ESTIMATE_COLUMN&columns=ACCOUNT_COLUMN&columns=LOG_DELAY_COLUMN&columns=WORKLOG_CREATED_DATE_COLUMN&groupBy=project&groupBy=worker&issueLists=null",
+        jiraTooltipTitle: "Где взять отчет Jira?",
+        jiraTooltipDesc: "Перейдите по ссылке ниже, чтобы получить нужные задачи, затем экспортируйте их в CSV.",
+        jiraLinkText: "Открыть отчет Jira",
+        jiraLink: "https://jira.mwnts.net/issues/?jql=project%20%3D%20RUIT%20AND%20issuetype%20in%20(%22Administrative%20task%22%2C%20Bug%2C%20Enabler%2C%20Maintenance%2C%20Spike%2C%20Story%2C%20%22Tech%20Debt%22)%20AND%20status%20%3D%20Done%20AND%20cf%5B11100%5D%20%3D%20185%20ORDER%20BY%20priority%20DESC%2C%20updated%20DESC",
 
         // Sprint Manager
         sprintName: "Название спринта",

@@ -3,6 +3,14 @@ import Papa from 'papaparse';
 import { translations as allTranslations } from '../translations';
 import './FocusFactorCalculator.css';
 
+const InfoIcon = () => (
+    <svg className="rich-tooltip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="16" x2="12" y2="12"></line>
+        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+    </svg>
+);
+
 function FocusFactorCalculator({ employees, setEmployees, config, focusFactorSource }) {
     const language = 'ru';
     const translations = allTranslations[language];
@@ -274,6 +282,20 @@ function FocusFactorCalculator({ employees, setEmployees, config, focusFactorSou
                     <div className="file-upload-container fade-in">
                         <div className="upload-grid">
                             <div className={`upload-zone ${tempoFile ? 'has-file' : ''}`}>
+                                <div className="zone-tooltip-wrapper" onClick={(e) => e.stopPropagation()}>
+                                    <div className="rich-tooltip-container">
+                                        <InfoIcon />
+                                        <div className="rich-tooltip-popover">
+                                            <div className="rich-tooltip-content">
+                                                <h4>{translations.tempoTooltipTitle}</h4>
+                                                <p>{translations.tempoTooltipDesc}</p>
+                                                <a href={translations.tempoLink} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ display: 'inline-block', fontSize: '0.8rem', padding: '6px 12px', marginTop: '8px', textDecoration: 'none' }}>
+                                                    🔗 {translations.tempoLinkText}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <label className="file-label">
                                     <span className="upload-icon">⏱️</span>
                                     <span className="upload-text">{tempoFile ? tempoFile.name : translations.uploadTempo}</span>
@@ -286,6 +308,20 @@ function FocusFactorCalculator({ employees, setEmployees, config, focusFactorSou
                                 </label>
                             </div>
                             <div className={`upload-zone ${jiraFile ? 'has-file' : ''}`}>
+                                <div className="zone-tooltip-wrapper" onClick={(e) => e.stopPropagation()}>
+                                    <div className="rich-tooltip-container">
+                                        <InfoIcon />
+                                        <div className="rich-tooltip-popover">
+                                            <div className="rich-tooltip-content">
+                                                <h4>{translations.jiraTooltipTitle}</h4>
+                                                <p>{translations.jiraTooltipDesc}</p>
+                                                <a href={translations.jiraLink} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ display: 'inline-block', fontSize: '0.8rem', padding: '6px 12px', marginTop: '8px', textDecoration: 'none' }}>
+                                                    🔗 {translations.jiraLinkText}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <label className="file-label">
                                     <span className="upload-icon">🎫</span>
                                     <span className="upload-text">{jiraFile ? jiraFile.name : translations.uploadJira}</span>
