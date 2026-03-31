@@ -20,6 +20,7 @@ function FocusFactorCalculator({ employees, setEmployees, config, focusFactorSou
     const [isProcessing, setIsProcessing] = useState(false);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(false);
+    const [isQuartersVisible, setIsQuartersVisible] = useState(false);
 
     // Pure function to calculate metrics from sprint data
     const calculateMetrics = (sprints) => {
@@ -276,6 +277,116 @@ function FocusFactorCalculator({ employees, setEmployees, config, focusFactorSou
                             💡 {translations.focusFactorMethod} = SP / {translations.workingDays}
                         </p>
                     </div>
+                </div>
+
+                <div className="quarter-dates-section">
+                    <button 
+                        className="quarter-dates-toggle" 
+                        onClick={() => setIsQuartersVisible(!isQuartersVisible)}
+                        style={{ marginBottom: isQuartersVisible ? '1rem' : '0' }}
+                    >
+                        {isQuartersVisible ? '▼ Скрыть даты кварталов' : '▶ Посмотреть даты кварталов'}
+                    </button>
+                    {isQuartersVisible && (
+                        <div className="quarter-dates-table-container fade-in">
+                            <table className="quarter-dates-table">
+                                <thead>
+                                    <tr>
+                                        <th>Название</th>
+                                        <th>Даты планирования</th>
+                                        <th>Даты квартала</th>
+                                        <th>Расписание спринтов, количество рабочих дней (р.д.)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2025 Q3</td>
+                                        <td>4 - 8 августа 2025</td>
+                                        <td>7 августа - 29 октября</td>
+                                        <td className="sprint-schedule-cell">
+                                            Спринт 1: 7.08-20.08<br/>
+                                            Спринт 2: 21.08-03.09<br/>
+                                            Спринт 3: 04.09-17.09<br/>
+                                            Спринт 4: 18.09-01.10<br/>
+                                            Спринт 5: 02.10-15.10<br/>
+                                            Спринт 6: 16.10-29.10<br/>
+                                            Планирование: 27-30.10
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2025 Q4</td>
+                                        <td>27 - 30 октября</td>
+                                        <td>30 октября - 21 января</td>
+                                        <td className="sprint-schedule-cell">
+                                            Спринт 1: 30.10-12.11 (08 р.д.)<br/>
+                                            Спринт 2: 13.11-26.11 (10 р.д.)<br/>
+                                            Спринт 3: 27.11-10.12 (10 р.д.)<br/>
+                                            Спринт 4: 11.12-24.12 (10 р.д.)<br/>
+                                            Спринт 5: 25.12-14.01 (07 р.д.)<br/>
+                                            Спринт 6: 15.01-21.01 (02 р.д. + 3 р.д. планирования)<br/>
+                                            Планирование: 19-22.01
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2026 Q1</td>
+                                        <td>19 - 23 января</td>
+                                        <td>22 января - 15 апреля</td>
+                                        <td className="sprint-schedule-cell">
+                                            Спринт 1: 22.01-04.02 (09 р.д. + 1 р.д. планирования)<br/>
+                                            Спринт 2: 05.02-18.02 (10 р.д.)<br/>
+                                            Спринт 3: 19.02-04.03 (09 р.д.)<br/>
+                                            Спринт 4: 05.03-18.03 (09 р.д.)<br/>
+                                            Спринт 5: 19.03-01.04 (10 р.д.)<br/>
+                                            Спринт 6: 02.04-15.04 (7 р.д. + 3 р.д. планирования)<br/>
+                                            Планирование: 13-16.04
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2026 Q2</td>
+                                        <td>13 - 17 апреля</td>
+                                        <td>22 апреля - 8 июля</td>
+                                        <td className="sprint-schedule-cell">
+                                            Спринт 1: 16.04-29.04 (09 р.д. + 1 р.д. планирования)<br/>
+                                            Спринт 2: 30.04-13.05 (08 р.д.)<br/>
+                                            Спринт 3: 14.05-27.05 (10 р.д.)<br/>
+                                            Спринт 4: 28.05-10.06 (10 р.д.)<br/>
+                                            Спринт 5: 11.06-24.06 (09 р.д.)<br/>
+                                            Спринт 6: 25.06-08.07 (10 р.д.)<br/>
+                                            Планирование: 06-09.07
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2026 Q3</td>
+                                        <td>06 - 10 июля</td>
+                                        <td>9 июля - 30 сентября</td>
+                                        <td className="sprint-schedule-cell">
+                                            Спринт 1: 09.07-22.07 (10 р.д.)<br/>
+                                            Спринт 2: 23.07-05.08 (10 р.д.)<br/>
+                                            Спринт 3: 06.08-19.08 (10 р.д.)<br/>
+                                            Спринт 4: 20.08-02.09 (10 р.д.)<br/>
+                                            Спринт 5: 03.09-16.09 (10 р.д.)<br/>
+                                            Спринт 6: 17.09-30.09 (7 р.д. + 3 р.д. планирования)<br/>
+                                            Планирование: 28.09-01.10
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2026 Q4</td>
+                                        <td>28 сентября - 02 октября</td>
+                                        <td>1 октября - 23 декабря</td>
+                                        <td className="sprint-schedule-cell">
+                                            Спринт 1: 01.10-14.10 (10 р.д.)<br/>
+                                            Спринт 2: 15.10-28.10 (10 р.д.)<br/>
+                                            Спринт 3: 29.10-11.11 (09 р.д.)<br/>
+                                            Спринт 4: 12.11-25.11 (10 р.д.)<br/>
+                                            Спринт 5: 26.11-09.12 (10 р.д.)<br/>
+                                            Спринт 6: 10.12-23.12 (07 р.д. + 3 р.д. планирования)<br/>
+                                            Планирование: 21.12-24.12
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
                 </div>
 
                 {focusFactorSource === 'files' ? (

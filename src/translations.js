@@ -113,7 +113,7 @@ export const translations = {
         filesSource: "Из файлов (CSV)",
         uploadTempo: "Загрузить отчет Tempo (Worklogs CSV)",
         uploadJira: "Загрузить отчет Jira (CSV)",
-        processFiles: "Рассчитать Focus Factor",
+        processFiles: "Рассчитать capacity",
         errorParsing: "Ошибка при парсинге файлов. Проверьте формат.",
         successParsing: "Данные успешно импортированы!",
 
@@ -170,7 +170,7 @@ export const translations = {
         filesSource: "Из файлов (CSV)",
         uploadTempo: "Загрузить отчет Tempo (Worklogs CSV)",
         uploadJira: "Загрузить отчет Jira (CSV)",
-        processFiles: "Рассчитать коэффициент",
+        processFiles: "Рассчитать capacity",
         avgVelocity: "SP/день (K)",
         errorParsing: "Ошибка при парсинге файлов.",
         successParsing: "Данные импортированы!",
