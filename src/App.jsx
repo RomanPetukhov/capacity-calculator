@@ -67,8 +67,8 @@ const initialSprints = [
     startDate: '2025-01-13',
     endDate: '2025-01-24',
     calculatedDays: 10,
-    manualDays: null,
-    totalWorkingDays: 10
+    manualDays: 9,
+    totalWorkingDays: 9
   },
   {
     id: 2,
@@ -76,8 +76,8 @@ const initialSprints = [
     startDate: '2025-01-27',
     endDate: '2025-02-07',
     calculatedDays: 10,
-    manualDays: null,
-    totalWorkingDays: 10
+    manualDays: 8,
+    totalWorkingDays: 8
   },
   {
     id: 3,
@@ -85,7 +85,7 @@ const initialSprints = [
     startDate: '2025-02-10',
     endDate: '2025-02-21',
     calculatedDays: 10,
-    manualDays: null,
+    manualDays: 10,
     totalWorkingDays: 10
   },
   {
@@ -94,7 +94,7 @@ const initialSprints = [
     startDate: '2025-02-24',
     endDate: '2025-03-07',
     calculatedDays: 10,
-    manualDays: null,
+    manualDays: 10,
     totalWorkingDays: 10
   },
   {
@@ -103,8 +103,8 @@ const initialSprints = [
     startDate: '2025-03-10',
     endDate: '2025-03-21',
     calculatedDays: 10,
-    manualDays: null,
-    totalWorkingDays: 10
+    manualDays: 9,
+    totalWorkingDays: 9
   },
 ];
 

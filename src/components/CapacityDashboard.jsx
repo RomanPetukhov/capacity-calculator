@@ -7,6 +7,7 @@ function CapacityDashboard({ employees, sprints, config, setConfig, vacations, c
     const translations = allTranslations[language];
     const [sprintRoundingMode, setSprintRoundingMode] = useState('floor'); // for sprint cards
     const [netRoundingMode, setNetRoundingMode] = useState('floor'); // for net capacity table
+    const [grossRoundingMode, setGrossRoundingMode] = useState('none'); // for gross capacity table
 
     const applyRounding = (value, mode) => {
         switch (mode) {
@@ -168,59 +169,6 @@ function CapacityDashboard({ employees, sprints, config, setConfig, vacations, c
             <h2>{translations.capacityDashboardTitle}</h2>
             <p className="dashboard-description">{translations.dashboardDesc}</p>
 
-            {/* Employee Breakdown Table - Gross Capacity */}
-            <div className="employee-breakdown">
-                <p className="table-description">{translations.grossCapacityDesc}</p>
-                <div className="table-container">
-                    <table className="breakdown-table">
-                        <thead>
-                            <tr>
-                                <th>{translations.teamMember}</th>
-                                <th>{calculationMethod === 'velocity' ? translations.dailyShare : 'SP/Day'}</th>
-                                {sprints.map(sprint => (
-                                    <th key={sprint.id}>{sprint.name}</th>
-                                ))}
-                                <th>{translations.total}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {calculations.employeeSprintCapacity.map(({ employee, sprints: empSprints }) => (
-                                <tr key={employee.id}>
-                                    <td className="employee-name">{employee.name}</td>
-                                    <td className="focus-factor">
-                                        {calculationMethod === 'velocity'
-                                            ? (employees.length > 0 ? (teamVelocity / employees.length).toFixed(1) : '0.0')
-                                            : employee.focusFactor.toFixed(2)
-                                        }
-                                    </td>
-                                    {empSprints.map(({ sprint, capacity }) => (
-                                        <td key={sprint.id} className="capacity-cell">
-                                            {capacity.toFixed(1)}
-                                        </td>
-                                    ))}
-                                    <td className="total-cell">
-                                        {empSprints.reduce((sum, s) => sum + s.capacity, 0).toFixed(1)}
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colSpan="2">{translations.totalCapacity}</td>
-                                {calculations.sprintTotals.map(({ sprint, totalCapacity }) => (
-                                    <td key={sprint.id} className="total-cell">
-                                        {totalCapacity.toFixed(1)}
-                                    </td>
-                                ))}
-                                <td className="grand-total-cell">
-                                    {totalCapacityAllSprints.toFixed(1)}
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
-
             {/* Sprint Summary Cards */}
             <div className="sprint-cards-section highlighted-section">
                 <div className="sprint-cards-header">
@@ -305,6 +253,74 @@ function CapacityDashboard({ employees, sprints, config, setConfig, vacations, c
                             )}
                         </div>
                     ))}
+                </div>
+            </div>
+
+            {/* Employee Breakdown Table - Gross Capacity */}
+            <div className="employee-breakdown">
+                <div className="net-capacity-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <p className="table-description">{translations.grossCapacityDesc}</p>
+                    <div className="rounding-selector">
+                        <label className="rounding-label">{translations.rounding}</label>
+                        <select
+                            value={grossRoundingMode}
+                            onChange={(e) => setGrossRoundingMode(e.target.value)}
+                            className="rounding-select"
+                        >
+                            <option value="floor">{translations.roundFloor}</option>
+                            <option value="round">{translations.roundNearest}</option>
+                            <option value="ceil">{translations.roundCeil}</option>
+                            <option value="none">{translations.roundNone}</option>
+                        </select>
+                    </div>
+                </div>
+                <div className="table-container">
+                    <table className="breakdown-table">
+                        <thead>
+                            <tr>
+                                <th>{translations.teamMember}</th>
+                                <th>{calculationMethod === 'velocity' ? translations.dailyShare : 'SP/Day'}</th>
+                                {sprints.map(sprint => (
+                                    <th key={sprint.id}>{sprint.name}</th>
+                                ))}
+                                <th>{translations.total}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {calculations.employeeSprintCapacity.map(({ employee, sprints: empSprints }) => (
+                                <tr key={employee.id}>
+                                    <td className="employee-name">{employee.name}</td>
+                                    <td className="focus-factor">
+                                        {calculationMethod === 'velocity'
+                                            ? (employees.length > 0 ? (teamVelocity / employees.length).toFixed(1) : '0.0')
+                                            : employee.focusFactor.toFixed(2)
+                                        }
+                                    </td>
+                                    {empSprints.map(({ sprint, capacity }) => (
+                                        <td key={sprint.id} className="capacity-cell">
+                                            {formatValue(capacity, grossRoundingMode)}
+                                        </td>
+                                    ))}
+                                    <td className="total-cell">
+                                        {formatValue(empSprints.reduce((sum, s) => sum + s.capacity, 0), grossRoundingMode)}
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colSpan="2">{translations.totalCapacity}</td>
+                                {calculations.sprintTotals.map(({ sprint, totalCapacity }) => (
+                                    <td key={sprint.id} className="total-cell">
+                                        {formatValue(totalCapacity, grossRoundingMode)}
+                                    </td>
+                                ))}
+                                <td className="grand-total-cell">
+                                    {formatValue(totalCapacityAllSprints, grossRoundingMode)}
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
                 </div>
             </div>
 
